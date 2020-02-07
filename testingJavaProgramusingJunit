@@ -1,0 +1,96 @@
+//this is the basic use case how we test the program using junit test coverage.
+public class EmployeeDetails 
+{
+        private String name;
+           private double monthlySalary;
+           private int age;
+           
+           public String getName() {
+              return name;
+           }
+        
+           public void setName(String name) {
+              this.name = name;
+           }
+        
+           public double getMonthlySalary() {
+              return monthlySalary;
+           }
+                
+           public void setMonthlySalary(double monthlySalary) {
+              this.monthlySalary = monthlySalary;
+           }
+                
+           public int getAge() {
+              return age;
+           }
+                
+           public void setAge(int age) {
+              this.age = age;
+           }
+}
+
+-----------------Business Logic--------------------------
+
+public class EmpBusinessLogic
+{
+        // Calculate the yearly salary of employee
+           public double calculateYearlySalary(EmployeeDetails employeeDetails) {
+              double yearlySalary = 0;
+              yearlySalary = employeeDetails.getMonthlySalary() * 12;
+              return yearlySalary;
+           }
+                
+           // Calculate the appraisal amount of employee
+           public double calculateAppraisal(EmployeeDetails employeeDetails) {
+              double appraisal = 0;
+                        
+              if(employeeDetails.getMonthlySalary() < 10000){
+                 appraisal = 500;
+              }else{
+                 appraisal = 1000;
+              }
+                        
+              return appraisal;
+           }
+}
+
+---------------testing---------------------------
+
+//package com.princy.cp.maventest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import com.princy.cp.maven1.EmpBusinessLogic;
+import com.princy.cp.maven1.EmployeeDetails;
+
+public class TestEmployeeDetails 
+{
+        EmpBusinessLogic empBusinessLogic = new EmpBusinessLogic();
+        
+           EmployeeDetails employee = new EmployeeDetails();
+
+           //test to check appraisal
+           @Test
+           public void testCalculateAppriasal() {
+              employee.setName("Rajeev");
+              employee.setAge(25);
+              employee.setMonthlySalary(8000);
+                        
+              double appraisal = empBusinessLogic.calculateAppraisal(employee);
+              assertEquals(500, appraisal,0.0);
+           }
+
+           // test to check yearly salary
+           @Test
+           public void testCalculateYearlySalary() {
+              employee.setName("Rajeev");
+              employee.setAge(25);
+              employee.setMonthlySalary(8000);
+                        
+              double salary = empBusinessLogic.calculateYearlySalary(employee);
+              assertEquals(96000, salary, 0.0);
+           }
+}
